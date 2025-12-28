@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view mt10>
 
 	</view>
 </template>
