@@ -9,6 +9,14 @@
   },
   "pages": [
     {
+      "path" : "pages/login/login",
+      "style" :
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/tab/home/index",
       "style": {
         "navigationBarTitleText": "首页"
@@ -26,7 +34,23 @@
         "navigationStyle": "custom"
       },
       "needLogin": true
+    },
+    {
+      "path" : "pages/register/register",
+      "style" :
+      {
+         "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/chat/chat",
+      "style" :
+      {
+         "navigationStyle": "custom"
+        // "navigationBarTitleText" : "custom"
+      }
     }
+
   ],
   "subPackages": [
     {
@@ -75,18 +99,18 @@
     "list": [{
       "iconPath": "static/images/tabbar/icon_home.png",
       "selectedIconPath": "static/images/tabbar/icon_home_selected.png",
-      "pagePath": "pages/tab/home/index",
-      "text": "首页"
+      "pagePath": "pages/chat/chat",
+      "text": "对话"
     }, {
       "iconPath": "static/images/tabbar/icon_list.png",
       "selectedIconPath": "static/images/tabbar/icon_list_selected.png",
       "pagePath": "pages/tab/list/index",
-      "text": "列表"
+      "text": "创作"
     }, {
       "iconPath": "static/images/tabbar/icon_me.png",
       "selectedIconPath": "static/images/tabbar/icon_me_selected.png",
       "pagePath": "pages/tab/user/index",
-      "text": "我的"
+      "text": "通知"
     }]
   },
   "globalStyle": {
