@@ -1,0 +1,69 @@
+{
+  "bsonType": "object",
+  "required": ["message_id", "conversation_id", "image_url", "prompt", "status", "create_time"],
+  "permission": {
+    "read": "auth.uid == doc.user_id", // 仅所属用户可读取
+    "create": "auth != null", // 仅登录用户可创建（实际由AI服务端创建）
+    "update": "auth != null", // 允许更新生成状态（如“生成中”→“成功”）
+    "delete": "auth.uid == doc.user_id" // 仅所属用户可删除
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "图像生成记录ID（云数据库自动生成）"
+    },
+    "message_id": {
+      "bsonType": "string",
+      "description": "关联消息ID（对应 message 表的 _id，触发生成的消息）",
+      "index": true, // 索引优化：通过消息查图像
+      "unique": true // 确保一条消息仅对应一条生成记录（1:1关联）
+    },
+    "conversation_id": {
+      "bsonType": "string",
+      "description": "关联对话ID（冗余字段，优化查询：通过对话查所有生成图像）",
+      "index": true
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户ID（关联 user 表 _id，用于权限控制）"
+    },
+    "image_url": {
+      "bsonType": "string",
+      "maxLength": 500,
+      "description": "生成图像URL（云存储路径，如 cloud://xxx/xxx.png；内网可存相对路径）"
+    },
+    "image_name": {
+      "bsonType": "string",
+      "maxLength": 100,
+      "defaultValue": "",
+      "description": "图像名称（可选，如“可爱美少女_2024.png”）"
+    },
+    "image_size": {
+      "bsonType": "int",
+      "defaultValue": 0,
+      "description": "图像大小（单位：字节，可选）"
+    },
+    "status": {
+      "bsonType": "int",
+      "defaultValue": 3,
+      "enum": [1, 2, 3], // 1-成功，2-失败，3-生成中
+      "description": "生成状态：1-成功，2-失败，3-生成中"
+    },
+    "prompt": {
+      "bsonType": "string",
+      "maxLength": 500,
+      "description": "图像生成提示词（冗余存储，如“可爱美少女，粉色头发，卡通风格”）"
+    },
+    "create_time": {
+      "bsonType": "timestamp",
+      "defaultValue": { "$env": "now" },
+      "description": "生成任务创建时间"
+    },
+    "finish_time": {
+      "bsonType": "timestamp",
+      "defaultValue": null,
+      "description": "生成任务完成时间（成功/失败时填充）"
+    }
+  },
+  "description": "图像生成表（存储AI生成的图像相关信息，关联对应对话消息）"
+}

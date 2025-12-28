@@ -4,16 +4,20 @@ export default antfu(
   {
     unocss: true,
     node: true,
-    ignores: [
-      'dist/**',
-      '.vscode/**',
-      '.idea/**',
-      'node_modules/**',
-      'src/uni_modules/**',
-      'src/manifest.json',
-      'src/pages.json',
-      'README.md',
-    ],
+    // ignores: [
+    //   'dist/**',
+    //   '.vscode/**',
+    //   '.idea/**',
+    //   'node_modules/**',
+    //   'src/uni_modules/**',
+    //   'src/manifest.json',
+    //   'src/pages.json',
+    //   'README.md',
+    // ],
+
+        ignores: ["**/*"], // 忽略所有文件，包括 src、uni_modules、dist 等
+        // 若想精准忽略（仅保留业务文件但关闭规则），可改为：
+        // ignores: ["src/uni_modules/**/*", "node_modules/**/*", "dist/**/*"]
   },
   {
     rules: {

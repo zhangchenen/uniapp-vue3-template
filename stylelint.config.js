@@ -54,5 +54,16 @@ export default {
     ],
     'selector-type-no-unknown': [true, { ignoreTypes: ['page', 'radio', 'checkbox', 'scroll-view'] }],
     'at-rule-no-deprecated': null,
+    'selector-class-pattern': [
+          // 正则表达式：仅允许小写字母、数字、下划线、短横线，且以字母开头（可选）
+          // 如果你想强制必须是 snake_case（仅下划线），可改为 ^[a-z0-9_]+$
+          '^[a-z0-9_-]+$',
+          {
+            // 可选：自定义报错提示
+            message: 'Expected class selector to be snake_case (下划线) or kebab-case (短横线)',
+            // 可选：是否忽略伪类/伪元素中的类名（默认 false）
+            // ignorePseudoClasses: true,
+          },
+        ],
   },
 };

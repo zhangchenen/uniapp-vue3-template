@@ -1,0 +1,45 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": false,
+		"create": false,
+		"update": false,
+		"delete": false
+	},
+	"required": [
+		"userName",
+		"passWord"
+	],
+	
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"userName":{
+			"description": "用户名",
+			"bsonType": "string",
+			"trim": "both"
+		},
+		"passWord":{
+			"description": "用户密码",
+			"bsonType": "password",
+			"minLength":6,
+			"trim": "both",
+			"pattern": "^[A-Za-z0-9]{6,16}$",
+			"errorMessage":{
+				"required":"{passWord}不能为空",
+				"minLength":"{passWord}不能小于{minLength}个字符,且只能由字母和数字组成"
+			}
+		},
+		"createTime":{
+			"description": "用户创建日期",
+			"bsonType": "string",
+			"trim":"both"
+			
+			
+		}
+		
+	}
+}

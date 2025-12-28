@@ -1,0 +1,60 @@
+{
+    "bsonType": "object",
+    "required": [
+        "user_id",
+        "title",
+        "status",
+        "create_time",
+        "update_time"
+    ],
+    "permission": {
+        "read": "auth.uid == doc.user_id", // 仅对话所属用户可读取（权限控制核心）
+        "create": "auth != null", // 仅登录用户可创建
+        "update": "auth.uid == doc.user_id", // 仅对话所属用户可修改
+        "delete": "auth.uid == doc.user_id" // 仅对话所属用户可删除
+    },
+    "properties": {
+        "_id": {
+            "bsonType": "string",
+            "description": "对话唯一ID（云数据库自动生成，无需手动赋值）"
+        },
+        "user_id": {
+            "bsonType": "string",
+            "description": "关联用户ID（对应云数据库用户表的 _id 或 auth.uid）",
+            "index": true // 建立索引，优化“查询用户所有对话”的性能（对应原表 idx_user_id）
+        },
+        "title": {
+            "bsonType": "string",
+            "defaultValue": "未命名对话", // 默认值（对齐原表）
+            "maxLength": 100,
+            "description": "对话标题（自动提取第一条消息或用户自定义）"
+        },
+        "status": {
+            "bsonType": "int",
+            "defaultValue": 1, // 默认正常状态（对齐原表）
+            "enum": [
+                1,
+                2
+            ], // 状态枚举：1-正常，2-已删除（软删除）
+            "description": "对话状态：1-正常，2-已删除（软删除）"
+        },
+        "create_time": {
+            "bsonType": "timestamp",
+            "defaultValue": {
+                "$env": "now"
+            }, // 自动填充创建时间（云数据库内置函数）
+            "description": "对话创建时间"
+        },
+        "update_time": {
+            "bsonType": "timestamp",
+            "defaultValue": {
+                "$env": "now"
+            },
+            "onUpdate": {
+                "$env": "now"
+            }, // 数据更新时自动刷新时间（对齐原表 ON UPDATE）
+            "description": "最后消息时间（数据更新时自动更新）"
+        }
+    },
+    "description": "对话表（存储用户与AI的对话会话）"
+}
