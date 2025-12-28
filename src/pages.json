@@ -93,24 +93,24 @@
   },
   "tabBar": {
     "color": "#1b233b",
-    "selectedColor": "#21d59d",
+    "selectedColor": "#209fe4",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [{
-      "iconPath": "static/images/tabbar/icon_home.png",
-      "selectedIconPath": "static/images/tabbar/icon_home_selected.png",
+      "iconPath": "static/images/tabbar/chat_unactive.png",
+      "selectedIconPath": "static/images/tabbar/chat_active.png",
       "pagePath": "pages/chat/chat",
       "text": "对话"
     }, {
-      "iconPath": "static/images/tabbar/icon_list.png",
-      "selectedIconPath": "static/images/tabbar/icon_list_selected.png",
+      "iconPath": "static/images/tabbar/create.png",
+      "selectedIconPath": "static/images/tabbar/create_active.png",
       "pagePath": "pages/tab/list/index",
       "text": "创作"
     }, {
-      "iconPath": "static/images/tabbar/icon_me.png",
-      "selectedIconPath": "static/images/tabbar/icon_me_selected.png",
+      "iconPath": "static/images/tabbar/history.png",
+      "selectedIconPath": "static/images/tabbar/history_active.png",
       "pagePath": "pages/tab/user/index",
-      "text": "通知"
+      "text": "历史"
     }]
   },
   "globalStyle": {
