@@ -5,7 +5,7 @@
     				labelPosition="left"
     				:model="phoneModel"
     				:rules="phoneRules"
-    				ref="form1"
+    				ref="registerForm"
     		>
         <up-form-item label="" prop="account" labelWidth="55">
             <up-input
@@ -35,8 +35,9 @@
 </template>
 
 <script setup lang="ts">
-   import {reactive} from 'vue';
+   import {reactive,ref} from 'vue';
    import { test } from 'uview-plus';
+   import { defineExpose } from 'vue';
    const phoneModel = reactive({
       account:"",
       phonePassword:""
@@ -55,6 +56,15 @@
         trigger:['change','blur']
       }
    })
+   const registerForm = ref(null) as any;
+   const account = toRef(phoneModel,'account');
+   const passWord = toRef(phoneModel,'phonePassword');
+   function registerValidate()
+   {
+     // console.log("userName",phoneModel.account)
+      return registerForm.value.validate()
+   }
+   defineExpose({registerValidate,userName:account,passWord:passWord});
 </script>
 
 <style lang="sass" scoped>

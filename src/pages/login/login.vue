@@ -10,10 +10,10 @@
 
     <view h-calc-full-30px mt-5 w-per-76 p-5>
        <up-form labelPosition="left" :model="login_data" :rules="rules" ref="form1">
-         <up-form-item prop="userName" borderBottom>
+         <up-form-item prop="username" borderBottom>
            <up-input v-model="login_data.username" prefixIcon="account-fill" placeholder="请输入用户名称"></up-input>
          </up-form-item>
-         <up-form-item prop="userName" borderBottom>
+         <up-form-item prop="password" borderBottom>
            <up-input v-model="login_data.password" prefixIcon="lock-fill" placeholder="请输入账号密码"></up-input>
          </up-form-item>
 
@@ -22,7 +22,7 @@
         <text font-size-30rpx>记住密码</text>
         <text color-link-blue font-size-30rpx @click="handleRegister">注册账号</text>
        </view>
-       <up-button type="primary" mt20px color="#3C9CFF" important-border-rounded-10px>登录</up-button>
+       <up-button type="primary" mt20px color="#3C9CFF" important-border-rounded-10px @click="handleSubmitForm">登录</up-button>
        <up-divider text="其他登录方式" :hairline="true"></up-divider>
        <view w-full flex justify-center >
          <view>
@@ -57,25 +57,15 @@
 		password: ""
 	})
 
-	let rules = reactive({
-		username:{
-			rules:[{
-				required:true,
-				errorMessage:"请输入用户名"
-			}]
-		},
-		password:{
-			rules:[{
-				required:true,
-				errorMessage:"请入密码"
-			}]
-		}
-	})
-	// let uniForm = ref<(InstanceType<typeof UniForms> & UniFormInstance | null)>(null);
+	let rules = {
+    username:[{required:true,message:"请输入用户名称",trigger:["change","blur"]}],
+    password:[{required:true,message:"请输入密码",trigger:["change","blur"]}]
+  }
+	let form1 = ref<any>(null);
 	function handleSubmitForm() {
 		// console.log("3333xx")
 		// loginMethod.testObj();
-		uniForm.value.validate().then(async (res : Boolean) => {
+		form1.value.validate().then(async (res : Boolean) => {
 			if (res) {
 				let result = await loginMethod.generateTokenLogin({ userName: login_data.username, passWord: login_data.password });
 				if(result.code===200)
@@ -86,6 +76,9 @@
 						duration: 2000,
 					})
 					localStorage.setItem("token",result.token);
+          uni.switchTab({
+            url: "/pages/chat/chat" // 仅保留url，无需open-type
+          });
 				}
 				else
 				{

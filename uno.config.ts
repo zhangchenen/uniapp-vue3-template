@@ -25,7 +25,7 @@ export default defineConfig({
       },
     }),
   ],
-  rules: [[/^h-calc-screen-(.+)$/, ([, expr]) => ({ height: `calc(100vh - ${expr})` })],[/^h-calc-full-(.+)$/, ([, expr]) => ({ height: `calc(100% - ${expr})` })],[/^w-per-(.+)$/, ([, expr]) => ({ width: `${expr}%` })]],
+  rules: [ [/^h-calc-screen-(.+)$/, ([, expr]) => ({ height: `calc(100vh - ${expr})` })], [/^h-calc-full-(.+)$/, ([, expr]) => ({ height: `calc(100% - ${expr})` })], [/^w-per-(.+)$/, ([, expr]) => ({ width: `${expr}%` })]],
   /**
    * 自定义快捷语句
    * @see https://github.com/unocss/unocss#shortcuts
@@ -33,9 +33,10 @@ export default defineConfig({
   shortcuts: {
     'border-base': 'border border-gray-500_10',
     'center': 'flex justify-center items-center',
-    'flex-colh-center':'flex flex-col flex-items-center',
-    'flex-row-between':'flex justify-between',
-    'flex-align-center':'flex flex-items-center'
+    'flex-colh-center': 'flex flex-col flex-items-center',
+    'flex-row-between': 'flex justify-between',
+    'flex-align-center': 'flex flex-items-center',
+     'card-shadow':'shadow-[2px_2px_8px_rgba(0,0,0,0.1)]'
   },
   theme: {
     colors: {
@@ -56,8 +57,8 @@ export default defineConfig({
       // 边框颜色
       'border-main': 'var(--theme-border-color)',
       //可点击下载的颜色
-      link:{
-        'blue':'rgb(41, 121, 255)'
+      link: {
+        'blue': 'rgb(41, 121, 255)'
       }
     },
   },

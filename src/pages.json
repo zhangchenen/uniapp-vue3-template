@@ -9,6 +9,22 @@
   },
   "pages": [
     {
+      "path" : "pages/chat/chat",
+      "style" :
+      {
+         "navigationStyle": "custom"
+        // "navigationBarTitleText" : "custom"
+      }
+    },
+    {
+      "path" : "pages/mine/mine",
+      "style" :
+      {
+         "navigationStyle": "custom"
+        // "navigationBarTitleText" : "custom"
+      }
+    },
+    {
       "path" : "pages/login/login",
       "style" :
       {
@@ -41,16 +57,7 @@
       {
          "navigationStyle": "custom"
       }
-    },
-    {
-      "path" : "pages/chat/chat",
-      "style" :
-      {
-         "navigationStyle": "custom"
-        // "navigationBarTitleText" : "custom"
-      }
     }
-
   ],
   "subPackages": [
     {
@@ -111,6 +118,11 @@
       "selectedIconPath": "static/images/tabbar/history_active.png",
       "pagePath": "pages/tab/user/index",
       "text": "历史"
+    },{
+      "iconPath": "static/images/tabbar/mine.png",
+      "selectedIconPath": "static/images/tabbar/mine_active.png",
+      "pagePath": "pages/mine/mine",
+      "text": "我的"
     }]
   },
   "globalStyle": {

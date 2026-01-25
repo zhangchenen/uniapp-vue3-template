@@ -1,5 +1,6 @@
 <template>
   <view h-screen w-full flex-colh-center>
+    <up-toast ref="uToastRef"></up-toast>
     <view  mt-15>
        <up-image src="/static/images/aigirl.png" width="150rpx" height="150rpx"></up-image>
     </view>
@@ -11,8 +12,8 @@
       <up-tabs :list="tabs_arr" @click="handleClickTab" lineColor="#4698E5" lineWidth="74"
         itemStyle="padding-left: 35px; padding-right: 35px; height: 44px;"></up-tabs>
        <register-phone v-show="activeItem==='手机注册'"></register-phone>
-       <register-password v-show="activeItem==='密码注册'"></register-password>
-       <up-button color="#3C9CFF" mt10px @click="">注册</up-button>
+       <register-password v-show="activeItem==='密码注册'" ref="registerPassword"></register-password>
+       <up-button color="#3C9CFF" mt10px @click="handleRegister">注册</up-button>
        <view mt30px>
           <up-divider text="已有账号?" ></up-divider>
        </view>
@@ -31,12 +32,15 @@
   }, {
     name: "密码注册"
   }])
+
   let activeItem = ref<string | number>("手机注册");
   type selected = {
     index:number,
     [key:string]:string | number,
 
   }
+
+
   function handleClickTab(item:selected) {
     // console.log("select",item)
       activeItem.value = item.name;
@@ -49,16 +53,40 @@
 
      })
   }
-  // export default {
-  // 	data() {
-  // 		return {
+  //密码注册逻辑
+  const loginMethod = uniCloud.importObject('userlogin')
+  // console.log("resxxx",loginMethod)
+  const registerPassword = ref<any>(null);
+  import  type { registerType } from 'types/login/index.ts';
+  const uToastRef = ref(null) as any;
+  function handleRegister()
+  {
 
-  // 		}
-  // 	},
-  // 	methods: {
+    registerPassword.value.registerValidate().then( async (res:Boolean)=>{
+        // console.log("userName",registerPassword.value.userName);
+        // return
+      const res1 = await loginMethod.generateRegisterToken({userName:registerPassword.value.userName,passWord:registerPassword.value.passWord})
+      if(res1.code===200)
+      {
+          uToastRef.value.show({
+             message:"注册成功,正跳转至登录页",
+             complete()
+             {
+                uni.navigateTo({
+                  url:'/pages/login/login'
+                })
+             }
+          })
+      }
+      else
+      {
+        uToastRef.value.show({
+           message:res1.message
+        })
+      }
+   })
+  }
 
-  // 	}
-  // }
 </script>
 
 <style>
